@@ -10,8 +10,8 @@
    			position:fixed;
     		bottom:0;
 	  }
-	  
-	  
+
+
     </style>
   </head>
   <body>
@@ -59,10 +59,10 @@ var onPaint = function() {
   ctx.lineTo(mouse.x, mouse.y);
   ctx.stroke();
 }
-document.getElementById('save').addEventListener('click', function() {
+/*document.getElementById('save').addEventListener('click', function() {
     var img = canvas.toDataURL("image/png");
     $("body").append('<a download=' +  $("#imagename").val() + '.png href="'+img+'">Download image!</a>');
-}, false);
+}, false);*/
 $(document).ready(function() {
   $("#submit").click(function() {
     ctx.lineWidth = parseInt($("#size").val());
