@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Paint</title>
+    <style>
+      #sketch { position: relative; }
+      #paint { border: 1px solid #000; }
+    </style>
+  </head>
+  <body>
+    <div class="settings">
+      Color: <input type="text" id="color" value="blue"></input>
+      Size: <input type="number" id="size" value="5"></input>
+      Shape: <input type="text" id="shape" value="round"></input>
+      <button id="submit">Submit</button>
+      <br />
+      <button id="reset">Default Settings</button>
+      <button id="clear">Clear canvas</button><br />
+      <input type="text" id="imagename" value="myImage"></input>
+      <button id="save">Save image</button>
+    </div>
+    <div id="sketch">
+      <canvas id="paint" width="400" height="400">
+      </canvas>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>var canvas = document.querySelector("#paint");
+var ctx = canvas.getContext('2d');
+
+var sketch = document.querySelector("#sketch");
+var sketch_style = getComputedStyle(sketch);
+
+canvas.width = parseInt(sketch_style.getPropertyValue('width'));
+canvas.height = parseInt(sketch_style.getPropertyValue('height'));
+
+var mouse = {x: 0, y: 0};
+
+/* Mouse Capturing Work */
+canvas.addEventListener('mousemove', function(e) {
+  mouse.x = e.pageX;
+  mouse.y = e.pageY;
+}, false);
+
+/* Drawing */
+ctx.lineWidth = 5;
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.strokeStyle = 'blue';
+
+canvas.addEventListener('mousedown', function(e) {
+  ctx.beginPath();
+  ctx.moveTo(mouse.x, mouse.y);
+
+  canvas.addEventListener('mousemove', onPaint, false);
+}, false);
+
+canvas.addEventListener('mouseup', function() {
+  canvas.removeEventListener('mousemove', onPaint, false);
+}, false);
+
+var onPaint = function() {
+  ctx.lineTo(mouse.x - this.offsetLeft, mouse.y - this.offsetTop);
+  ctx.stroke();
+}
+document.getElementById('save').addEventListener('click', function() {
+    var img = canvas.toDataURL("image/png");
+    $("body").append('<a download=' +  $("#imagename").val() + '.png href="'+img+'">Download image!</a>');
+}, false);
+$(document).ready(function() {
+  $("#submit").click(function() {
+    ctx.lineWidth = parseInt($("#size").val());
+    ctx.lineJoin = $("#shape").val();
+    ctx.lineCap = $("#shape").val();
+    if ($("#color").val() === "eraser") {
+      ctx.strokeStyle = 'white';
+    } else {
+      ctx.strokeStyle = $("#color").val();
+    }
+  });
+  $("#reset").click(function() {
+    ctx.lineWidth = 5;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = 'blue';
+    $("#size").val("5");
+    $("#shape").val("round");
+    $("#color").val("blue");
+  });
+  $("#clear").click(function() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+});
+</script>
+  </body>
+</html>
