@@ -6,23 +6,14 @@
     <style>
       #sketch { position: relative; }
       #paint { border: 1px solid #000; }
+      #footer {
+   			position:fixed;
+    		bottom:0;
+	  }
     </style>
   </head>
   <body>
-  	<h2>PaintOnline</h2>
-  	<p>Developed by <a href="https://willthodges.weebly.com">Will T. Hodges</a> on 12/10/15</p>
-    <div class="settings">
-      Color: <input type="text" id="color" value="blue"></input>
-      Size: <input type="number" id="size" value="5"></input>
-      Shape: <input type="text" id="shape" value="round"></input>
-      <button id="submit">Update</button>
-      <br />
-      <button id="reset">Default Settings</button>
-      <button id="clear">Clear canvas</button><br />
-      <input type="text" id="imagename" value="myImage"></input>
-      <button id="save">Save image</button>
-    </div>
-    <div id="sketch">
+  	<div id="sketch">
       <canvas id="paint" width="400" height="400">
       </canvas>
     </div>
@@ -40,6 +31,7 @@ var mouse = {x: 0, y: 0};
 
 /* Mouse Capturing Work */
 canvas.addEventListener('mousemove', function(e) {
+  var rect = canvas.getBoundingClientRect();
   mouse.x = e.pageX;
   mouse.y = e.pageY;
 }, false);
@@ -52,7 +44,7 @@ ctx.strokeStyle = 'blue';
 
 canvas.addEventListener('mousedown', function(e) {
   ctx.beginPath();
-  ctx.moveTo(mouse.x, mouse.y);
+  ctx.moveTo(e.pageX, e.pageY);
 
   canvas.addEventListener('mousemove', onPaint, false);
 }, false);
@@ -62,7 +54,7 @@ canvas.addEventListener('mouseup', function() {
 }, false);
 
 var onPaint = function() {
-  ctx.lineTo(mouse.x - this.offsetLeft, mouse.y - this.offsetTop);
+  ctx.lineTo(mouse.x, mouse.y);
   ctx.stroke();
 }
 document.getElementById('save').addEventListener('click', function() {
@@ -94,5 +86,21 @@ $(document).ready(function() {
   });
 });
 </script>
+	<div class="other">
+    <div class="settings">
+      Color: <input type="text" id="color" value="blue"></input>
+      Size: <input type="number" id="size" value="5"></input>
+      Shape: <input type="text" id="shape" value="round"></input>
+      <button id="submit">Update</button>
+      <br />
+      <button id="reset">Default Settings</button>
+      <button id="clear">Clear canvas</button><br />
+      <input type="text" id="imagename" value="myImage"></input>
+      <button id="save">Save image</button>
+    </div>
+    </div>
   </body>
+  <footer id="footer">
+  	PaintOnline copyright 2015 <a href="https://willthodges.weebly.com">Will T. Hodges</a>
+  </footer>
 </html>
