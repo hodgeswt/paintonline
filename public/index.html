@@ -20,7 +20,9 @@
       </canvas>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script>var canvas = document.querySelector("#paint");
+    <script src="./jcanvas.min.js"></script>
+    <script>
+    var canvas = document.querySelector("#paint");
 var ctx = canvas.getContext('2d');
 
 var sketch = document.querySelector("#sketch");
@@ -84,7 +86,19 @@ $(document).ready(function() {
     $("#color").val("blue");
   });
   $("#clear").click(function() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      $("#paint").clearCanvas();
+  });
+  $("#ellipseSubmit").click(function() {
+      var ellipseHeight = $("#ellipseHeight").val();
+      var ellipseWidth = $("#ellipseWidth").val();
+      var ellipseColor = $("#ellipseColor").val();
+      var ellipseX = $("#ellipseX").val();
+      var ellipseY = $("#ellipseY").val();
+      $("#paint").drawEllipse({
+        fillStyle: ellipseColor,
+        x: ellipseX, y: ellipseY,
+        width: ellipseWidth, height: ellipseHeight,
+      });
   });
 });
 </script>
@@ -98,7 +112,15 @@ $(document).ready(function() {
       <button id="reset">Default Settings</button>
       <button id="clear">Clear canvas</button><br />
       <input type="text" id="imagename" value="myImage"></input>
-      <button id="save">Save image</button>
+      <button id="save">Save image</button><br />
+      Insert Ellipse <br />
+      X: <input type="number" id="ellipseX" value="100"></input>
+      Y: <input type="number" id="ellipseY" value="100"></input>
+      Color: <input type="text" id="ellipseColor" value="blue"></input>
+      Width: <input type="number" id="ellipseWidth" value="100"></input>
+      Height: <input type="number" id="ellipseHeight" value="100"></input>
+      <button id="ellipseSubmit">Add Ellipse</button>
+      <br />
     </div>
     </div>
   </body>
