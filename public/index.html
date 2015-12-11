@@ -21,7 +21,29 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="./js/jcanvas.min.js"></script>
-    <script>
+	<div class="other">
+    <div class="settings">
+      Color: <input type="text" id="color" value="blue"></input>
+      Size: <input type="number" id="size" value="5"></input>
+      Shape: <input type="text" id="shape" value="round"></input>
+      <button id="submit">Update</button>
+      <br />
+      <button id="reset">Default Settings</button>
+      <button id="clear">Clear canvas</button><br />
+      <input type="text" id="imageName" value="myImage"></input>
+      <button id="downloadImage">Save image</button><br />
+      Insert Ellipse <br />
+      X: <input type="number" id="ellipseX" value="100"></input>
+      Y: <input type="number" id="ellipseY" value="100"></input>
+      Color: <input type="text" id="ellipseColor" value="blue"></input>
+      Width: <input type="number" id="ellipseWidth" value="100"></input>
+      Height: <input type="number" id="ellipseHeight" value="100"></input>
+      <button id="ellipseSubmit">Add Ellipse</button>
+      <br />
+    </div>
+    </div>
+  </body>
+  <script>
     var canvas = document.querySelector("#paint");
 var ctx = canvas.getContext('2d');
 
@@ -61,10 +83,9 @@ var onPaint = function() {
   ctx.lineTo(mouse.x, mouse.y);
   ctx.stroke();
 }
-/*document.getElementById('save').addEventListener('click', function() {
-    var img = canvas.toDataURL("image/png");
-    $("body").append('<a download=' +  $("#imagename").val() + '.png href="'+img+'">Download image!</a>');
-}, false);*/
+document.getElementById("downloadImage").addEventListener('click', function(ev) {
+    $("body").append("<a href='" + document.getElementById("paint").toDataURL() + "' download='" + $("#imageName").val() + "'>Download your Image!</a>");
+}, false);
 $(document).ready(function() {
   $("#submit").click(function() {
     ctx.lineWidth = parseInt($("#size").val());
@@ -102,28 +123,6 @@ $(document).ready(function() {
   });
 });
 </script>
-	<div class="other">
-    <div class="settings">
-      Color: <input type="text" id="color" value="blue"></input>
-      Size: <input type="number" id="size" value="5"></input>
-      Shape: <input type="text" id="shape" value="round"></input>
-      <button id="submit">Update</button>
-      <br />
-      <button id="reset">Default Settings</button>
-      <button id="clear">Clear canvas</button><br />
-      <input type="text" id="imagename" value="myImage"></input>
-      <button id="save">Save image</button><br />
-      Insert Ellipse <br />
-      X: <input type="number" id="ellipseX" value="100"></input>
-      Y: <input type="number" id="ellipseY" value="100"></input>
-      Color: <input type="text" id="ellipseColor" value="blue"></input>
-      Width: <input type="number" id="ellipseWidth" value="100"></input>
-      Height: <input type="number" id="ellipseHeight" value="100"></input>
-      <button id="ellipseSubmit">Add Ellipse</button>
-      <br />
-    </div>
-    </div>
-  </body>
   <footer id="footer">
   	PaintOnline copyright 2015 <a href="https://willthodges.weebly.com">Will T. Hodges</a>
   </footer>
