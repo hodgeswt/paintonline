@@ -4,13 +4,47 @@
     <meta charset="utf-8">
     <title>PaintOnline</title>
     <style>
-      #sketch { position: relative; }
-      #paint { border: 1px solid #000; }
-      #footer {
-   			position:fixed;
-    		bottom:0;
-	  }
-
+* {
+	font-family: Georgia, "Times New Roman", Times;
+	background-color: #C8C8C8;
+}
+#sketch { 
+	position: relative; 
+}
+#paint { 
+	border: 1px solid #6496c8; 
+	background-color: white;
+}
+#footer {
+	position:fixed;
+	bottom:0;
+}
+button {
+  color: #fff;
+  background-color: #6496c8;
+  text-shadow: -1px 1px #417cb8;
+  border: none;
+}
+button:hover {
+  background-color: #346392;
+  text-shadow: -1px 1px #27496d;
+}
+button:active {
+  background-color: #27496d;
+  text-shadow: -1px 1px #193047;
+}
+input {
+    padding: 0px 0px 0px 0px;
+    background: transparent;
+    outline: none;
+    border: none;
+    border-bottom: 1px dashed #6496c8;
+    width: 100px;
+    overflow: hidden;
+    resize:none;
+    height:20px;
+}
+		
 
     </style>
   </head>
@@ -23,21 +57,28 @@
     <script src="./js/jcanvas.min.js"></script>
 	<div class="other">
     <div class="settings">
+    
       Color: <input type="text" id="color" value="blue"></input>
       Size: <input type="number" id="size" value="5"></input>
       Shape: <input type="text" id="shape" value="round"></input>
       <button id="submit">Update</button>
       <br />
+      <br />
       <button id="reset">Default Settings</button>
-      <button id="clear">Clear canvas</button><br />
+      <button id="clear">Clear canvas</button>
+      <br />
+      <br />
       <input type="text" id="imageName" value="myImage"></input>
-      <button id="downloadImage">Save image</button><br />
-      Insert Ellipse <br />
-      X: <input type="number" id="ellipseX" value="100"></input>
-      Y: <input type="number" id="ellipseY" value="100"></input>
-      Color: <input type="text" id="ellipseColor" value="blue"></input>
-      Width: <input type="number" id="ellipseWidth" value="100"></input>
-      Height: <input type="number" id="ellipseHeight" value="100"></input>
+      <button id="downloadImage">Save image</button>
+      <br />
+      <br />
+      Insert Ellipse
+      <br />
+      X:&nbsp<input type="number" id="ellipseX" value="100"></input>
+      Y:&nbsp<input type="number" id="ellipseY" value="100"></input>
+      Color:&nbsp<input type="text" id="ellipseColor" value="blue"></input>
+      Width:&nbsp<input type="number" id="ellipseWidth" value="100"></input>
+      Height:&nbsp<input type="number" id="ellipseHeight" value="100"></input>
       <button id="ellipseSubmit">Add Ellipse</button>
       <br />
     </div>
@@ -90,6 +131,22 @@ document.getElementById("downloadImage").addEventListener('click', function(ev) 
     $(".downloadLink").empty().append("<a href='" + document.getElementById("paint").toDataURL() + "' download='" + $("#imageName").val() + "'>Download your Image!</a>");
 }, false);
 $(document).ready(function() {
+  $("#paint").drawText({
+  	fillStyle: '#6496c8',
+  	strokeWidth: 2,
+  	x: 400, y: 100,
+  	fontSize: 48,
+ 	fontFamily: 'Georgia, Times',
+  	text: 'Welcome to PaintOnline!'
+  });
+  $("#paint").drawText({
+  	fillStyle: '#6496c8',
+  	strokeWidth: 2,
+  	x: 410, y: 200,
+  	fontSize: 24,
+ 	fontFamily: 'Georgia, Times',
+  	text: 'Click "Clear Canvas" below and get started drawing!'
+  });
   $("#submit").click(function() {
     ctx.lineWidth = parseInt($("#size").val());
     ctx.lineJoin = $("#shape").val();
