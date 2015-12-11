@@ -42,6 +42,9 @@
       <br />
     </div>
     </div>
+    <div class="downloadLink">
+
+    </div>
   </body>
   <script>
     var canvas = document.querySelector("#paint");
@@ -84,7 +87,7 @@ var onPaint = function() {
   ctx.stroke();
 }
 document.getElementById("downloadImage").addEventListener('click', function(ev) {
-    $("body").append("<a href='" + document.getElementById("paint").toDataURL() + "' download='" + $("#imageName").val() + "'>Download your Image!</a>");
+    $(".downloadLink").empty().append("<a href='" + document.getElementById("paint").toDataURL() + "' download='" + $("#imageName").val() + "'>Download your Image!</a>");
 }, false);
 $(document).ready(function() {
   $("#submit").click(function() {
